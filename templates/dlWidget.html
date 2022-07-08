@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<style>
+    .hide {
+        style: none;
+    }
+    .p3{
+        font-family: Arial, Helvetica, sans-serif;
+    }
+    .p1 {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 30px;
+      transform: scale(1, 1);
+    }
+    .p2{
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 13px;
+    }
+    .page-1-label{
+        background-color: #808080;
+        border-radius: 25px;
+        border: 2px solid #AEAEAE;
+        text-align: left;
+        color: white;
+        width: 100px;
+        height: 30px;
+        display: inline block;
+        padding-left: 10px;
+        padding-top: 3px;
+        position: relative;
+        left: 13px;
+        bottom: 7px;
+    }
+    input{
+        border-radius: 25px;
+        border: 2px solid #AEAEAE;
+        padding: 20px;
+        width: 200px;
+        height: 15px;
+    }
+    ::-webkit-scrollbar {
+        width: 12px;
+        height: 12px;
+    }
+    ::-webkit-scrollbar-track {
+        border: 1px solid #C5C5C5;
+        border-radius: 10px;
+        background: #C5C5C5
+    }
+    ::-webkit-scrollbar-thumb {
+        background: #0072b8;
+        border-radius: 10px;
+    }
+    button {
+        background: white;
+        color: #0072b8;
+        border: 2px solid #0072b8;
+        text-align: center;
+        padding: 7px 15px;
+        border-radius: 25px;
+    }
+    .input-page-2{
+        height:40px;
+        width:250px;
+        border-radius:30px;
+        padding:10px;
+    }
+    .success-img{
+        height:150px;
+        width:150px;
+    }
+    .page-2-input{
+          width: 13px;
+          height: 13px;
+          padding: 2;
+          margin:1;
+          vertical-align: bottom;
+          position: relative;
+          top: -1px;
+          *overflow: hidden;
+    }
+    .page-2-label{
+         display: block;
+         padding-left: 15px;
+         text-indent: 1px;
+    }
+    .dot {
+        border: 3px solid grey;
+        border-radius: 18px;
+        height: 30px;
+        width: 30px;
+    }
+    .line{
+        border-bottom: 3px solid grey;
+        width: 200px;
+        margin-bottom:15px;
+    }
+    .selected-dot {
+        background-color:#77cefc;
+        border: 3px solid #0f9df5;
+        border-radius: 18px;
+        height: 30px;
+        width: 30px;
+    }
+    .selected-line{
+        border-bottom: 3px solid #0f9df5;
+        width: 200px;
+        margin-bottom:15px;
+    }
+    .icon{
+        height:20px;
+        width:20px
+    }
+</style>
+<body>
+<transactionid data-value="{{ transactionid }}"></transactionid>
+<requestcode data-value="{{ request_code }}"></requestcode>
+   <center>
+       <div style="margin-bottom:5px">
+           <img src="/img/icon-bank.png" class="icon" style="margin-right:205px"/>
+           <img src="/img/icon-smile.png" class="icon" style="margin-right:205px"/>
+           <img src="/img/icon-web.png" class="icon"/>
+       </div>
+       <div style="display:flex;justify-content:center;">
+            <div class="selected-dot" id="dot-1"></div>
+            <div class="line" id="line-1"></div>
+            <div class="dot" id="dot-2"></div>
+            <div class="line" id="line-2"></div>
+            <div class="dot" id="dot-3"></div>
+       </div>
+        <div id="page-1">
+                <p class="p1">Awesome!</p>
+                <strong class="p2" >You've added a bank</strong><br><br><br>
+                <p class="p3">Please verify your information is correct for:<br>Worldwide Savings Bank</p>
+                <form>
+                    <label class="page-1-label" for="firstname">First</label><input readonly type="text" id="firstname" value="Alex"> <br><br>
+                    <label class="page-1-label" for="lastname">Last</label><input readonly type="text" id="lastname" value="abc"><br><br>
+                    <label class="page-1-label" for="accountnumber" style="background-color: #0072b8;">Account</label><input readonly type="text" id="accountnumber" value="123456789"><br><br>
+                    <label class="page-1-label" for="routingnumber" style="background-color: #0072b8;" >Routing</label><input readonly type="text" id="routingnumber" value="999999963"><br><br><br>
+                    <button type="submit" id="submit1">Submit</button>
+                </form>
+        </div>
+        <div id="page-2" class="hide">
+                <h3>Please enter same credentials you use when logging into your financial institution</h3>
+                    <p>Securely logging into</p>
+                    <p>Worldwide Savings Bank.</p>
+                <form>
+                    <input type="text" id="username" placeholder="Username" class="input-page-2"><br><br>
+                    <input type="password" id="password" placeholder="Password" class="input-page-2"><br><br>
+                    <label class="page-2-label" style="text-align: justify;"><input class="page-2-input" type="checkbox" value="1" id="checkbox-1">I authorize Personify Financial to receive information relevent to varification of my identity and loan eligibility,in accordance with the service Terms and Conditions. Personify Financial.</label><br>
+                    <label class="page-2-label"><input class="page-2-input" type="checkbox" value="2" id="checkbox-2">I authorize Personify Financial to request an updated version of my bank information at a later date.</label>
+                    <button type="submit" id="dl-submit">SUBMIT</button>
+                </form>
+                <p id="required-field"></p>
+            </div>
+            <div id="page-3" class="hide">
+                <img src="/img/dl-success.png" class="success-img"/>
+                <h1>Success!</h1>
+                <p>Your bank is verified!</p>
+                <p>Please contact your lender for futher information.</p>
+            </div>
+   </center>
+</body>
+<script>
+    var hostURL = window.location.protocol + "//" + window.location.host;
+    var transactionid = $('transactionid').attr('data-value');
+    var requestCode = $('requestcode').attr('data-value');
+    var username = ""
+    var password = ""
+    var userNameStatusMap = {
+        "decision1" : "0",
+        "decision2" : "1",
+        "decision3" : "2",
+        "decision4" : "3",
+        "decision5" : "-1",
+        "decision6" : "-2",
+    }
+     function saveDlStatus(userInput){
+        var dlNotificationURL = hostURL + '/dlnotification/' + '?' + (new URLSearchParams({
+            'cid': transactionid,
+            'rc': requestCode,
+            's': userNameStatusMap[userInput]
+            })
+        ).toString();
+        $.ajax({
+            header: {
+                'HTTP-X-Requested-With': 'XMLHttpRequest'
+            },
+            url: dlNotificationURL,
+            type: 'GET',
+            dataType: 'xml',
+            statusCode: {
+                200: function(response) {
+                    $('#page-2').addClass("hide");
+                    $('#page-3').removeClass("hide");
+                },
+            },
+            error: function(response) {
+                $('#page-2').addClass("hide");
+                $('#page-3').removeClass("hide");
+            }
+        });
+    }
+    $('#dl-submit').on('click', function(e){
+        e.preventDefault();
+        $('#line-2').removeClass('line')
+        $('#line-2').addClass('selected-line')
+        $('#dot-3').removeClass('dot')
+        $('#dot-3').addClass('selected-dot')
+        username = $('#username').val()
+        password = $('#password').val()
+        checkbox1 = $("#checkbox-1").is(":checked");
+        if(username == ""){
+            $('#required-field').html("please enter your username");
+        }
+        else if(password == ""){
+            $('#required-field').html("please enter your password");
+        }
+        else if(checkbox1===false){
+            $('#required-field').html("please check any one of the boxes");
+        }
+        else{
+            saveDlStatus(username)
+        }
+    })
+    $('#submit1').on('click', function(e){
+        e.preventDefault();
+        $('#page-1').addClass('hide')
+        $('#page-2').removeClass('hide')
+        $('#line-1').removeClass('line')
+        $('#line-1').addClass('selected-line')
+        $('#dot-2').removeClass('dot')
+        $('#dot-2').addClass('selected-dot')
+    })
+
+
+</script>
+</html>
